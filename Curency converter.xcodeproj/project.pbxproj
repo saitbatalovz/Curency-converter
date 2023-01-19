@@ -58,13 +58,29 @@
 			children = (
 				6F819D4F2978EE49006F99A9 /* AppDelegate.swift */,
 				6F819D512978EE49006F99A9 /* SceneDelegate.swift */,
-				6F819D532978EE49006F99A9 /* ViewController.swift */,
-				6F819D552978EE4A006F99A9 /* Main.storyboard */,
+				6F819D642978FAA2006F99A9 /* Controller */,
+				6F819D632978FA7B006F99A9 /* View */,
 				6F819D582978EE4C006F99A9 /* Assets.xcassets */,
 				6F819D5A2978EE4C006F99A9 /* LaunchScreen.storyboard */,
 				6F819D5D2978EE4C006F99A9 /* Info.plist */,
 			);
 			path = "Curency converter";
+			sourceTree = "<group>";
+		};
+		6F819D632978FA7B006F99A9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6F819D552978EE4A006F99A9 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6F819D642978FAA2006F99A9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6F819D532978EE49006F99A9 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
