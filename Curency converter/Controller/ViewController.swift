@@ -12,10 +12,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var currencyOneLabel: UILabel!
     @IBOutlet weak var currencyTwoLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
-    lazy var defaultCurrencyIndexOne = 19
-    lazy var defaultCurrencyIndexTwo = 16
+    lazy var defaultCurrencyIndexOne = 19 //USD
+    lazy var defaultCurrencyIndexTwo = 16 //RUB
 
-    lazy var currencyManager = CurrencyManager(selectedCurrencyOne: defaultCurrencyIndexOne, selectedCurrencyTwo: defaultCurrencyIndexTwo)
+    lazy var currencyManager = CurrencyManager(selectedCurrencyIndexOne: defaultCurrencyIndexOne, selectedCurrencyIndexTwo: defaultCurrencyIndexTwo)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +23,25 @@ class ViewController: UIViewController {
         currencyManager.delegate = self
         currencyPicker.dataSource = self
         currencyPicker.delegate = self
-        currencyPicker.selectRow(defaultCurrencyIndexOne, inComponent: 0, animated: true)
-        currencyPicker.selectRow(defaultCurrencyIndexTwo, inComponent: 1, animated: true)
-        currencyManager.getCurrencyRate()
+        
+        moveCurrencyPicker(animated: false)
+    }
+    
+    @IBAction func swapButtonAction(_ sender: Any) {
+        (currencyManager.selectedCurrencyIndexOne, currencyManager.selectedCurrencyIndexTwo) = (currencyManager.selectedCurrencyIndexTwo, currencyManager.selectedCurrencyIndexOne)
+        moveCurrencyPicker(animated: true)
 
     }
+    
+    func moveCurrencyPicker(animated: Bool) {
+        currencyPicker.selectRow(currencyManager.selectedCurrencyIndexOne, inComponent: 0, animated: animated)
+        currencyPicker.selectRow(currencyManager.selectedCurrencyIndexTwo, inComponent: 1, animated: animated)
+        currencyManager.getCurrencyRate()
+    }
+    
 }
+
+
 
 //MARK: - UIPickerViewDataSource
 extension ViewController: UIPickerViewDataSource {
@@ -47,8 +60,8 @@ extension ViewController: UIPickerViewDelegate {
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
-        case 0: currencyManager.selectedCurrencyOne = currencyManager.currencyArray[row]
-        case 1: currencyManager.selectedCurrencyTwo = currencyManager.currencyArray[row]
+        case 0: currencyManager.selectedCurrencyIndexOne = row
+        case 1: currencyManager.selectedCurrencyIndexTwo = row
         default:
             break
         }

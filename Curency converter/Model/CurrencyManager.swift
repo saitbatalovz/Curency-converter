@@ -17,19 +17,24 @@ struct CurrencyManager {
     let baseURL = "https://rest.coinapi.io/v1/exchangerate"
     let apiKey = "22ACFFEE-F4DB-4780-B82A-D7B1DFFAD9FC"
     var delegate: CurrencyManagerDelegate?
-    var selectedCurrencyOne: String
-    var selectedCurrencyTwo: String
+    
+    var selectedCurrencyIndexOne: Int
+    var selectedCurrencyIndexTwo: Int
+
+    
+    var selectedCurrencyOne: String {
+        return currencyArray[selectedCurrencyIndexOne]
+    }
+    var selectedCurrencyTwo: String {
+        return currencyArray[selectedCurrencyIndexTwo]
+    }
     
     let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
     
-    init(selectedCurrencyOne: Int, selectedCurrencyTwo: Int) {
-        self.selectedCurrencyOne = currencyArray[selectedCurrencyOne]
-        self.selectedCurrencyTwo = currencyArray[selectedCurrencyTwo]
-    }
     
     func getCurrencyRate() {
         let urlString = "\(baseURL)/\(selectedCurrencyOne)/\(selectedCurrencyTwo)?apikey=\(apiKey)"
-//        print(urlString)
+        print(urlString)
         performRequest(with: urlString)
     }
     
