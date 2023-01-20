@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         }
     }
 
-    lazy var currencyManager = CurrencyManager(selectedCurrencyIndexOne: currencyIndexOne, selectedCurrencyIndexTwo: currencyIndexTwo) // 19 USD, 16 RUB default values
+    lazy var currencyManager = CurrencyManager(selectedCurrencyIndexOne: currencyIndexOne, selectedCurrencyIndexTwo: currencyIndexTwo) 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,7 +92,7 @@ extension ViewController: UIPickerViewDelegate {
 //MARK: - CurrencyManagerDelegate
 extension ViewController: CurrencyManagerDelegate {
     func didFailWithError(_ error: Error) {
-//        print(error)
+        print(error)
     }
     func didUpdateExchangeRate(_ exchangeRate: ExchangeRateModel) {
 

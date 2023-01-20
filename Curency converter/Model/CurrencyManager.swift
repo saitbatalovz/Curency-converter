@@ -34,7 +34,6 @@ struct CurrencyManager {
     
     func getCurrencyRate() {
         let urlString = "\(baseURL)/\(selectedCurrencyOne)/\(selectedCurrencyTwo)?apikey=\(apiKey)"
-//        print(urlString)
         performRequest(with: urlString)
     }
     
