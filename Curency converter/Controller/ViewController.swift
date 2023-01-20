@@ -12,8 +12,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var currencyOneLabel: UILabel!
     @IBOutlet weak var currencyTwoLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
-    
-    var currencyManager = CurrencyManager()
+    lazy var defaultCurrencyIndexOne = 19
+    lazy var defaultCurrencyIndexTwo = 16
+
+    lazy var currencyManager = CurrencyManager(selectedCurrencyOne: defaultCurrencyIndexOne, selectedCurrencyTwo: defaultCurrencyIndexTwo)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +23,8 @@ class ViewController: UIViewController {
         currencyManager.delegate = self
         currencyPicker.dataSource = self
         currencyPicker.delegate = self
-        
+        currencyPicker.selectRow(defaultCurrencyIndexOne, inComponent: 0, animated: true)
+        currencyPicker.selectRow(defaultCurrencyIndexTwo, inComponent: 1, animated: true)
         currencyManager.getCurrencyRate()
 
     }
