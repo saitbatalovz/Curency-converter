@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  Curency converter
+//  Currency converter
 //
 //  Created by Zulfat Saitbatalov on 19.01.2023.
 //
