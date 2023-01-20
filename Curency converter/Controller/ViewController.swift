@@ -12,10 +12,27 @@ class ViewController: UIViewController {
     @IBOutlet weak var currencyOneLabel: UILabel!
     @IBOutlet weak var currencyTwoLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
-    lazy var defaultCurrencyIndexOne = 19 //USD
-    lazy var defaultCurrencyIndexTwo = 16 //RUB
+    var currencyIndexOne : Int {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "IndexOne")
+            UserDefaults.standard.synchronize()
+        }
+        get {
+            return UserDefaults.standard.integer(forKey: "IndexOne")
+        }
+    }
+    
+    var currencyIndexTwo : Int {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "IndexTwo")
+            UserDefaults.standard.synchronize()
+        }
+        get {
+            return UserDefaults.standard.integer(forKey: "IndexTwo")
+        }
+    }
 
-    lazy var currencyManager = CurrencyManager(selectedCurrencyIndexOne: defaultCurrencyIndexOne, selectedCurrencyIndexTwo: defaultCurrencyIndexTwo)
+    lazy var currencyManager = CurrencyManager(selectedCurrencyIndexOne: currencyIndexOne, selectedCurrencyIndexTwo: currencyIndexTwo) // 19 USD, 16 RUB default values
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +46,8 @@ class ViewController: UIViewController {
     
     @IBAction func swapButtonAction(_ sender: Any) {
         (currencyManager.selectedCurrencyIndexOne, currencyManager.selectedCurrencyIndexTwo) = (currencyManager.selectedCurrencyIndexTwo, currencyManager.selectedCurrencyIndexOne)
+        (currencyIndexOne, currencyIndexTwo) = (currencyIndexTwo, currencyIndexOne)
+        
         moveCurrencyPicker(animated: true)
 
     }
@@ -61,7 +80,9 @@ extension ViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0: currencyManager.selectedCurrencyIndexOne = row
+            currencyIndexOne = row
         case 1: currencyManager.selectedCurrencyIndexTwo = row
+            currencyIndexTwo = row
         default:
             break
         }
@@ -71,7 +92,7 @@ extension ViewController: UIPickerViewDelegate {
 //MARK: - CurrencyManagerDelegate
 extension ViewController: CurrencyManagerDelegate {
     func didFailWithError(_ error: Error) {
-        print(error)
+//        print(error)
     }
     func didUpdateExchangeRate(_ exchangeRate: ExchangeRateModel) {
 
